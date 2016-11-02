@@ -1,8 +1,26 @@
 <div class="album-details">
 	<div class="jumbotron">
-		<h1>YOUR ALBUM SHOULD SHOW UP HERE</h1>
-		<ul>
-			<li>You may want to show all of the tracks in a paticular ALBUM here</li>
-		</ul>
-	<div>
-</div>
+		<h1>{{$ctrl.currentAlbum.collectionName}}</h1>
+		<img src="{{ $ctrl.currentAlbum.artworkUrl100 }}" alt="" width="200px">
+		<table class="table table-striped">
+			<tr>
+				<th></th>
+				<th>Track Name</th>
+				<th>time</th>
+				<th></th>
+				<th>price</th>
+			</tr>
+			<tr ng-repeat="track in $ctrl.currentAlbum.tracks.slice(1, $ctrl.currentAlbum.tracks.length)">
+				<td>{{ track.trackNumber }}</td>
+				<td>{{ track.trackCensoredName }}</td>
+				<td>{{ $ctrl.renderTime(track) }}</td>
+				<td>
+					<audio controls preload:"metadata"><source src="{{ track.previewUrl }}" type="audio/mp4"></audio>
+				</td>
+				<td>{{ track.trackPrice }}</td>
+			</tr>
+		</table>
+		<div>
+			<a ui-sref="albums"><button type="button">Go Back to Albums</button></a>
+			<!--Send this button back to the Albums page-->
+		</div>

@@ -1,5 +1,5 @@
 angular.module('ng-music')
-    .config(function($stateProvider, $sceProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $sceProvider, $urlRouterProvider) {
 
         $sceProvider.enabled(false);
 
@@ -16,19 +16,16 @@ angular.module('ng-music')
 
         $stateProvider
             .state({
+                name: 'album',
+                url: '/album/:id',
+                component: 'album'
+            })
+            .state({
                 name: 'albums',
                 url: '/albums',
-                template: 'Maybe you should render your albums component here', //Get the right component here and go look at your page
+                component: 'albums'
             })
 
-            //You will notice the more dets button is broken look at your dev tools. Now its time to add that next state
-            //The next state needs to be named *** album ***
-            //It will need to be setup to accept a route parameter. 
-            //This is just like it was in node/express routing 
-            //but its not optional so no ? needed
-
-            //Once you get your album state done you will need to fix the AlbumController 
-
-            $urlRouterProvider.otherwise('/albums')
-            //^^^ this guy defaults the page to albums if a bad url is given
+        $urlRouterProvider.otherwise('/albums')
+        //^^^ this guy defaults the page to albums if a bad url is given
     })
