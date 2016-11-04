@@ -1,22 +1,23 @@
 <div class="album-details">
 	<div class="jumbotron">
-		<h1>{{$ctrl.currentAlbum.collectionName}}</h1>
-		<img src="{{ $ctrl.currentAlbum.artworkUrl100 }}" alt="" width="200px">
+		<h1>{{$ctrl.currentAlbum[0].collectionName}}</h1>
+		<img ng-src="{{ $ctrl.currentAlbum[0].artworkUrl100 }}" alt="{{ $ctrl.currentAlbum[0].collectionName}}" width="200px">
+		<a href="{{$ctrl.currentAlbum[0].collectionViewUrl}}">
+			<button>Buy in iTunes for {{ $ctrl.currentAlbum[0].collectionPrice}}</button>
+		</a>
 		<table class="table table-striped">
 			<tr>
 				<th></th>
-				<th>Track Name</th>
+				<th>track name</th>
 				<th>time</th>
 				<th></th>
 				<th>price</th>
 			</tr>
-			<tr ng-repeat="track in $ctrl.currentAlbum.tracks.slice(1, $ctrl.currentAlbum.tracks.length)">
+			<tr ng-repeat="track in $ctrl.currentAlbum.slice(1, $ctrl.currentAlbum.length) | filter: positives">
 				<td>{{ track.trackNumber }}</td>
 				<td>{{ track.trackCensoredName }}</td>
-				<td>{{ $ctrl.renderTime(track) }}</td>
-				<td>
-					<audio controls preload:"metadata"><source src="{{ track.previewUrl }}" type="audio/mp4"></audio>
-				</td>
+				<td>{{ $ctrl.renderTime(track.trackTimeMillis) }}</td>
+				<td><audio controls preload:"metadata"><source src="{{ track.previewUrl }}" type="audio/mp4"></audio></td>
 				<td>{{ track.trackPrice }}</td>
 			</tr>
 		</table>
@@ -24,3 +25,15 @@
 			<a ui-sref="albums"><button type="button">Go Back to Albums</button></a>
 			<!--Send this button back to the Albums page-->
 		</div>
+	</div>
+</div>
+
+<script>
+	angular.module("ng-music")
+		.filter("positives", function(input){
+			if (input == -1) {
+				return "Not Available";
+			}
+			return input;
+		})
+</script>

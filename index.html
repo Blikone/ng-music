@@ -12,6 +12,10 @@
     <header>
         I am a cool nav bar
     </header>
+    <div ng-controller="SearchController as sc">
+        <input type="text" ng-model="sc.query"/>
+        <button type="button" ng-click="sc.search()">Search for Artist</button>
+    </div>
     <div class="main-content">
         <ui-view></ui-view>
     </div>
@@ -32,6 +36,7 @@
     
     <script src="app/components/music/albums-controller.js"></script>
     <script src="app/components/music/album-controller.js"></script>
+    <script src="app/components/music/search-controller.js"></script>
 
 </body>
 

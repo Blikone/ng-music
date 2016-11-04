@@ -1,13 +1,17 @@
 <div class="jumbotron">
     <h1>MUSIC IS LIFE</h1>
+    <form ng-submit="$ctrl.search($ctrl.query)">
+        <input type="text" ng-model="$ctrl.query">
+        <button>Search by Artist</button>
+    </form>
 </div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-4" ng-repeat="album in $ctrl.albums">
             <div class="thumbnail">
-                <img ng-src="{{album.artworkUrl100}}" alt="{{album.collectionName}}">
+                <img ng-src="{{album.albumArt}}" alt="{{album.title}}">
                 <div class="caption">
-                    <h3>{{album.collectionName}}</h3>
+                    <h3>{{album.title}}</h3>
                     <p>
                         <a ui-sref="album({id: album.collectionId})" class="btn btn-primary" role="button">More Details</a>
                         <!-- ^^^^^ This thing is pretty important but it wont work until you have an album state that is expecting an id parameter -->

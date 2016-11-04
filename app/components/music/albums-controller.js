@@ -6,14 +6,18 @@
         })
 
     AlbumsController.$inject = ['MusicService']
-    
+
     function AlbumsController(MusicService) {
         var cc = this;
-        cc.showDetails = function (album) {
-            cc.show = true;
-            cc.selectedAlbum = album;
+        
+        cc.search = function (term) {
+            console.log('Searching...');
+            MusicService.getMusicByArtist(term, function (albums) {
+                console.log(albums);
+                cc.albums = albums;
+                cc.query = '';
+            });
         }
-        cc.albums = MusicService.getAllAlbums();
     }
 
 } ())
